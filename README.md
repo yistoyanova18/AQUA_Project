@@ -1,12 +1,11 @@
-# AQUA_Project
-<h1 align = "center">AQUA Project - 2021</h1>
-<p align="center"><img src = "https://cdn.discordapp.com/attachments/851834816672432151/858321605574131732/unknown.png" width="350"></p>
-<p align = "center">Mentored by TechnoLogica</p>
+<h1 align = "center">AQUA Project</h1>
+<p align = "center"> <img src = "https://cdn.discordapp.com/attachments/808345491984351302/858350256773005312/No_Brain_No_Gain_Logo.png" width="200"></p>
+<p align = "right">Mentored by TechnoLogica</p>
 <br>
 <hr>
-<h1 align = "center">Our team</h1>
+<h1>Our team</h1>
 
-<table align="center">
+<table align>
   <tr>
     <th>Participant</th>
     <th>Emails</th>
@@ -32,16 +31,21 @@
     <td><i>ADPeev20@codingburgas.bg</i></td>
   </tr>
 </table>
-<p align = "center">
+<br>
+<hr>
+<h1>More about the project: </h1>
+
+> For this project we decided to make a program which gives us the full information about ice lakes. Our program is written in C++, and we use SQL.
+
+<h1 align="left">Languages and Tools:</h1>
+<p align="left"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="50" height="50"/> 
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/photoshop/photoshop-line.svg" alt="photoshop" width="50" height="50"/> 
+  <img src="https://cdn.discordapp.com/attachments/847544775506395165/858360440110317568/powerpoint.png" alt="word" width="50" height="50"/>
+  <img src="https://cdn.discordapp.com/attachments/847544775506395165/858359457256046643/wordaqua.png" alt="powerpoint" width="50" height="50"/> 
+</p>
+<p>
    <img src = "https://img.shields.io/github/languages/count/yistoyanova18/AQUA_Project?style=for-the-badge">
    <img src = "https://img.shields.io/github/contributors/yistoyanova18/AQUA_Project?style=for-the-badge">
    <img src = "https://img.shields.io/github/last-commit/yistoyanova18/AQUA_Project?style=for-the-badge">
    <img src = "https://img.shields.io/github/languages/top/yistoyanova18/AQUA_Project?style=for-the-badge">
 </p>
-<br>
-<hr>
-<h1 align = "center"> More about the project </h1>
-<p align = "center">
-For this project we decided to make a program which gives us the full information about ice lakes.<br> Our program is written in C++, and we use SQL.  
-</p> 
-<h1 align = "center"><b><i>Have a great day!</i></b></h1>
