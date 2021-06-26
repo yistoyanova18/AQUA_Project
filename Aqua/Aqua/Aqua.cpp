@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <nanodbc.h>
+#include <exception>
 
 using namespace std;
 
