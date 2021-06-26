@@ -80,18 +80,32 @@ void getAllLakes(nanodbc::connection conn)
 	
 }
 
-void insertLake(nanodbc::connection conn) { //kakvo da pravim za da ne vuvejdame id
-
+void insert(nanodbc::connection conn, const LAKE& lake)
+{
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
         INSERT INTO
             AQUA_Lakes.Lakes
-            (first_name, last_name, phone, email, street, city, state, zip_code)
+            (LakeName, Mountain, BeginRiver, Valley, Altitude, Area, Volume, MaxDepth)
             VALUES
             (?, ?, ?, ?, ?, ?, ?, ?)
     )"));
 
+	statement.bind(0, lake.name.c_str());
+	statement.bind(1, lake.mountain.c_str());
+	statement.bind(2, lake.beginRiver.c_str());
+	statement.bind(3, lake.mainRiver.c_str());
+	statement.bind(4, &lake.seaLevelHeight);
+	statement.bind(5, &lake.area);
+	statement.bind(6, &lake.volume);
+	statement.bind(7, &lake.maxDepth);
 
+	execute(statement);
+}
+
+void insertLake(nanodbc::connection conn, const LAKE& lake) { //kakvo da pravim za da ne vuvejdame id
+
+	insert(conn, lake);
 
 	int a;
 	cout << "___add\n";
@@ -135,7 +149,7 @@ void displayMenu() {
 	cout << " |_______________________________________________________________________|\n";
 }
 
-void runProgram(nanodbc::connection conn) {
+void runProgram(nanodbc::connection conn, const LAKE& lake) {
 	int choice;
 	system("cls");
 	displayMenu();
@@ -149,7 +163,7 @@ void runProgram(nanodbc::connection conn) {
 			}
 			case 2: {
 				system("cls");
-				insertLake(conn);
+				insertLake(conn, lake);
 				break;
 			}
 			case 3: {
