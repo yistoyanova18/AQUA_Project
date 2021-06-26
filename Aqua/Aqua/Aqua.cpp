@@ -12,6 +12,7 @@ void add();
 void search();
 
 struct LAKE {
+	int id = 0;
 	string name = "-";
 	string mountain = "-";
 	string beginRiver = "-"; 
@@ -45,12 +46,12 @@ void info() {
 
 	int choice;
 
-	lakes[0] = { "Urdino", "Rila", "Urdina", "Cherni Iskur", 2278, 2.53, 89.5, 6.6 };
-	lakes[1] = { "Marichino", "Rila", "Marica", "Marica", 2378, 2.15, 92.3, 10.8 };
-	lakes[2] = { "Okoto", "Rila", "Jerman", "Struma", 2440, 6.8, 860, 37.5 };
-	lakes[3] = { "Bubreka", "Rila", "Jerman", "Struma", 2282, 8.5, 1170, 28 };
-	lakes[4] = { "Sedmoto", "Rila", "Jerman", "Struma", 2095, 5.9, 240, 11 };
-	lakes[5] = { "Popovo", "Pirin", "Retije", "Mesta", 2234, 12.36, 270, 29.5 };
+	lakes[0] = { 0, "Urdino", "Rila", "Urdina", "Cherni Iskur", 2278, 2.53, 89.5, 6.6 };
+	lakes[1] = { 1, "Marichino", "Rila", "Marica", "Marica", 2378, 2.15, 92.3, 10.8 };
+	lakes[2] = { 2, "Okoto", "Rila", "Jerman", "Struma", 2440, 6.8, 860, 37.5 };
+	lakes[3] = { 3, "Bubreka", "Rila", "Jerman", "Struma", 2282, 8.5, 1170, 28 };
+	lakes[4] = { 4, "Sedmoto", "Rila", "Jerman", "Struma", 2095, 5.9, 240, 11 };
+	lakes[5] = { 5, "Popovo", "Pirin", "Retije", "Mesta", 2234, 12.36, 270, 29.5 };
 
 	for (int i = 0; i < 6; i++) {
 		cout << " Lake: " << lakes[i].name << endl;
