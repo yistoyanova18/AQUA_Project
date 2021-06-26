@@ -145,6 +145,21 @@ void runProgram() {
 	}
 }
 
-int main() {
-	runProgram();
+int main() 
+{
+	//runProgram();
+	try
+	{
+		nanodbc::string connstr = NANODBC_TEXT("DRIVER={ODBC Driver 17 for SQL Server};SERVER=(local)\\SQLExpress;DATABASE=AQUA_Lakes;Trusted_Connection=yes;"); // an ODBC connection string to your database
+
+		nanodbc::connection conn(connstr);
+
+
+		return EXIT_SUCCESS;
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
 }
