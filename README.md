@@ -35,7 +35,7 @@
 <hr>
 <h1>More about the project: </h1>
 
-> For this project we decided to make a program which gives us the full information about ice lakes. Our program is written in C++, and we use SQL.
+> For this project we decided to make a program which gives us the full information about glacial lakes. Our program is written in C++, and we use SQL.
 
 <h1 align="left">Languages and Tools:</h1>
 <p align="left"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="50" height="50"/> 
