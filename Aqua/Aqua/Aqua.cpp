@@ -277,6 +277,24 @@ void deleteLakeByName(nanodbc::connection conn)
 
 }
 
+void deleteLakeById(nanodbc::connection conn)
+{
+	cout << "enter the id of the lake you want to delete: ";
+	int id  = enterInt();
+
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        DELETE 
+            FROM AQUA_Lakes.Lakes
+            WHERE Id = ?
+    )"));
+
+	statement.bind(0, &id);
+
+	auto result = execute(statement);
+
+}
+
 void deleteLake(nanodbc::connection conn)
 {
 
@@ -290,7 +308,7 @@ enter:
 	cin >> choice;
 	switch (choice)
 	{
-	case 1: //deleteLakeById(conn);
+	case 1: deleteLakeById(conn);
 		break;
 	case 2: deleteLakeByName(conn);
 		break;
