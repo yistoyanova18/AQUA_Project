@@ -168,8 +168,64 @@ void insertLake(nanodbc::connection conn) { //kakvo da pravim za da ne vuvejdame
 
 }
 
+LAKE getLakeById(nanodbc::connection conn)
+{
+	LAKE lake;
+
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        SELECT *
+            FROM AQUA_Lakes.Lakes
+            WHERE Id = ?
+    )"));
+
+	int id = enterInt();
+	
+	statement.bind(0, &id);
+
+	auto result = execute(statement);
+
+	if (result.next())
+	{
+		LAKE lake;
+		lake.id = result.get<int>("Id");
+		lake.name = result.get<nanodbc::string>("LakeName", "");
+		lake.mountain = result.get<nanodbc::string>("Mountain", "");
+		lake.beginRiver = result.get<nanodbc::string>("BeginRiver", "");
+		lake.mainRiver = result.get<nanodbc::string>("Valley", "");
+		lake.seaLevelHeight = result.get<int>("Altitude");
+		lake.area = result.get<float>("Area");
+		lake.volume = result.get<float>("Volume");
+		lake.maxDepth = result.get<float>("MaxDepth");
+
+	}
+
+	return lake;
+}
+
+/*LAKE getLakeByName(nanodbc::connection conn)
+{
+
+}*/
+
 void search(nanodbc::connection conn) 
 {
+	short int choice;
+
+	cout << "SEARCH BY" << endl;
+	cout << "1. Id" << endl;
+	cout << "2. Name" << endl;
+	enter:
+	cout << endl << "enter the option's number: ";
+	cin >> choice;
+	switch (choice)
+	{
+	case 1: getLakeById(conn);
+		break;
+	case 2: //getLakeByName(conn);
+		break;
+	default: cout << "Incorrect value entered! Please enter again: "; goto enter;
+	}
 	getBackToMenu(conn);
 }
 
