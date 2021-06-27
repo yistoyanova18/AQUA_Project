@@ -203,10 +203,40 @@ LAKE getLakeById(nanodbc::connection conn)
 	return lake;
 }
 
-/*LAKE getLakeByName(nanodbc::connection conn)
+LAKE getLakeByName(nanodbc::connection conn)
 {
+	LAKE lake;
 
-}*/
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        SELECT *
+            FROM AQUA_Lakes.Lakes
+            WHERE LakeName = ?
+    )"));
+
+	string lakeName = enterText();
+
+	statement.bind(1, &lakeName);
+
+	auto result = execute(statement);
+
+	if (result.next())
+	{
+		LAKE lake;
+		lake.id = result.get<int>("Id");
+		lake.name = result.get<nanodbc::string>("LakeName", "");
+		lake.mountain = result.get<nanodbc::string>("Mountain", "");
+		lake.beginRiver = result.get<nanodbc::string>("BeginRiver", "");
+		lake.mainRiver = result.get<nanodbc::string>("Valley", "");
+		lake.seaLevelHeight = result.get<int>("Altitude");
+		lake.area = result.get<float>("Area");
+		lake.volume = result.get<float>("Volume");
+		lake.maxDepth = result.get<float>("MaxDepth");
+
+	}
+
+	return lake;
+}
 
 void search(nanodbc::connection conn) 
 {
@@ -222,7 +252,7 @@ void search(nanodbc::connection conn)
 	{
 	case 1: getLakeById(conn);
 		break;
-	case 2: //getLakeByName(conn);
+	case 2: getLakeByName(conn);
 		break;
 	default: cout << "Incorrect value entered! Please enter again: "; goto enter;
 	}
