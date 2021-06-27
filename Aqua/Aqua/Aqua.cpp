@@ -80,7 +80,28 @@ void getAllLakes(nanodbc::connection conn)
 	
 }
 
-void insert(nanodbc::connection conn, const LAKE& lake)
+string enterText()
+{
+	string text;
+	getline(cin, text);
+	return text;
+}
+
+int enterInt()
+{
+	int num;
+	cin >> num;
+	return num;
+}
+
+double enterDouble()
+{
+	double num;
+	cin >> num;
+	return num;
+}
+
+void insert(nanodbc::connection conn)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -91,21 +112,44 @@ void insert(nanodbc::connection conn, const LAKE& lake)
             (?, ?, ?, ?, ?, ?, ?, ?)
     )"));
 
-	statement.bind(0, lake.name.c_str());
-	statement.bind(1, lake.mountain.c_str());
-	statement.bind(2, lake.beginRiver.c_str());
-	statement.bind(3, lake.mainRiver.c_str());
-	statement.bind(4, &lake.seaLevelHeight);
-	statement.bind(5, &lake.area);
-	statement.bind(6, &lake.volume);
-	statement.bind(7, &lake.maxDepth);
+	cout << "Enter the lake's name: ";
+	const string lakeName = enterText();
+	statement.bind(0, &lakeName);
+
+	cout << "Enter the mountain's name: ";
+	const string mountainName = enterText();
+	statement.bind(1, &mountainName);
+
+	cout << "Enter the lake's starting point: ";
+	const string beginRiver = enterText();
+	statement.bind(2, &beginRiver);
+
+	cout << "Enter the lake's valley: ";
+	const string mainRiver = enterText();
+	statement.bind(3, &mainRiver);
+
+	cout << "Enter the lake's altitude: ";
+	const int seaLevelHeight = enterInt();
+	statement.bind(4, &seaLevelHeight);
+
+	cout << "Enter the lake's area: ";
+	double area = enterDouble();
+	statement.bind(5, &area);
+
+	cout << "Enter the lake's volume: ";
+	double volume = enterDouble();
+	statement.bind(6, &volume);
+
+	cout << "Enter the lake's deepest point: ";
+	double maxDepth = enterDouble();
+	statement.bind(7, &maxDepth);
 
 	execute(statement);
 }
 
-void insertLake(nanodbc::connection conn, const LAKE& lake) { //kakvo da pravim za da ne vuvejdame id
+void insertLake(nanodbc::connection conn) { //kakvo da pravim za da ne vuvejdame id
 
-	insert(conn, lake);
+	insert(conn);
 
 	int a;
 	cout << "___add\n";
@@ -149,7 +193,7 @@ void displayMenu() {
 	cout << " |_______________________________________________________________________|\n";
 }
 
-void runProgram(nanodbc::connection conn, const LAKE& lake) {
+void runProgram(nanodbc::connection conn) {
 	int choice;
 	system("cls");
 	displayMenu();
@@ -163,7 +207,7 @@ void runProgram(nanodbc::connection conn, const LAKE& lake) {
 			}
 			case 2: {
 				system("cls");
-				insertLake(conn, lake);
+				insertLake(conn);
 				break;
 			}
 			case 3: {
