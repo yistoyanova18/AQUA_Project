@@ -24,6 +24,24 @@ struct LAKE {
 	double maxDepth = 0;
 };
 
+void getBackToMenu(nanodbc::connection conn)
+{
+
+	int choice;
+	cout << "type '0' to return bach to the menu\n";
+	enter:
+	cin >> choice;
+	if (choice == 0) {
+		system("cls");
+		runProgram(conn);
+	}
+	else
+	{
+		cout << "Invalid entered value! Plase enter again: ";
+		goto enter;
+	}
+
+}
 
 vector<LAKE> getLakes(nanodbc::connection conn) {
 
@@ -72,12 +90,7 @@ void getAllLakes(nanodbc::connection conn)
 		cout << lakes[i].maxDepth << endl;
 	}
 
-	int choice;
-	cout << endl << "Enter \"1\" to get back to the main menu: ";
-	cin >> choice;
-
-	if (choice == 1) runProgram(conn);
-	
+	getBackToMenu(conn);
 }
 
 string enterText()
@@ -151,25 +164,13 @@ void insertLake(nanodbc::connection conn) { //kakvo da pravim za da ne vuvejdame
 
 	insert(conn);
 
-	int a;
-	cout << "___add\n";
-	cout << "type '0' to return bach to the menu\n";
-	cin >> a;
-	if (a == 0) {
-		system("cls");
-		runProgram(conn);
-	}
+	getBackToMenu(conn);
+
 }
 
-void search(nanodbc::connection conn) {
-	int a;
-	cout << "___search\n";
-	cout << "type '0' to return bach to the menu\n";
-	cin >> a;
-	if (a == 0) {
-		system("cls");
-		runProgram(conn);
-	}
+void search(nanodbc::connection conn) 
+{
+	getBackToMenu(conn);
 }
 
 void displayMenu() {
