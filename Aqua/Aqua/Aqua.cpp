@@ -259,6 +259,47 @@ void search(nanodbc::connection conn)
 	getBackToMenu(conn);
 }
 
+void deleteLakeByName(nanodbc::connection conn)
+{
+	cout << "enter the name of the lake you want to delete: ";
+	string lakeName = enterText();
+
+	nanodbc::statement statement(conn);
+	nanodbc::prepare(statement, NANODBC_TEXT(R"(
+        DELETE 
+            FROM AQUA_Lakes.Lakes
+            WHERE LakeName = ?
+    )"));
+
+	statement.bind(1, &lakeName);
+
+	auto result = execute(statement);
+
+}
+
+void deleteLake(nanodbc::connection conn)
+{
+
+	short int choice;
+
+	cout << "DELETE BY" << endl;
+	cout << "1. Id" << endl;
+	cout << "2. Name" << endl;
+enter:
+	cout << endl << "enter the option's number: ";
+	cin >> choice;
+	switch (choice)
+	{
+	case 1: //deleteLakeById(conn);
+		break;
+	case 2: deleteLakeByName(conn);
+		break;
+	default: cout << "Incorrect value entered! Please enter again: "; goto enter;
+	}
+
+	getBackToMenu(conn);
+}
+
 void displayMenu() {
 
 	cout << "  _______________________________________________________________________ \n";
