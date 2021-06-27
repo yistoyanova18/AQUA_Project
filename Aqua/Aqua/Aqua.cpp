@@ -26,28 +26,28 @@ struct LAKE
 
 	void display()
 	{
-		cout << this->id << " ";
-		cout << this->name << " ";
-		cout << this->mountain << " ";
-		cout << this->beginRiver << " ";
-		cout << this->mainRiver << " ";
-		cout << this->seaLevelHeight << " ";
-		cout << this->area << " ";
-		cout << this->volume << " ";
-		cout << this->maxDepth << endl;
+		cout << "Lake id: " << this->id << endl;
+		cout << "Name: " << this->name << endl;
+		cout << "Mountain where it is located: " << this->mountain << endl;
+		cout << "A river that springs from the lake: " << this->beginRiver << endl;
+		cout << "Watershed: " << this->mainRiver << endl;
+		cout << "Altitude (m): " << this->seaLevelHeight << endl;
+		cout << "Area (ha): " << this->area << endl;
+		cout << "Volume (cb. m): " << this->volume << endl;
+		cout << "Maximal depth (m): " << this->maxDepth << endl << endl;
 	}
 };
 
 void getBackToMenu(nanodbc::connection conn)
 {
 	int choice;
-	cout << "type '0' to return bach to the menu\n";
+	cout << "Type '0' to return back to the menu\n";
 	enter:
 	cin >> choice;
 
 	if (choice == 0)
 	{
-		//system("cls");
+		system("cls");
 		//runProgram(conn);
 	}
 	else
@@ -399,7 +399,8 @@ void displayMenu()
 	cout << " |                                1. INFO                                |\n";
 	cout << " |                                2. ADD                                 |\n";
 	cout << " |                                3. SEARCH                              |\n";
-	cout << " |                                4. QUIT                                |\n";
+	cout << " |                                4. DELETE                              |\n";
+	cout << " |                                5. QUIT                                |\n";
 	cout << " |                                                                       |\n";
 	cout << " |                                                                       |\n";
 	cout << " |_______________________________________________________________________|\n";
@@ -411,6 +412,7 @@ bool runProgram(nanodbc::connection conn)
 
 	displayMenu();
 
+	cout << "Enter an option from the menu: ";
 	cin >> choice;
 
 	switch (choice)
@@ -432,7 +434,14 @@ bool runProgram(nanodbc::connection conn)
 			search(conn);
 			break;
 		}
-		case 4: return false;
+
+		case 4: {
+			system("cls");
+			deleteLake(conn);
+			break;
+		}
+
+		case 5: return false;
 		default: cout << "Try again: ";
 	}
 
