@@ -7,10 +7,6 @@
 using namespace std;
 
 bool runProgram(nanodbc::connection conn);
-//void displayMenu();
-//vector<LAKE> getAllLakes(nanodbc::connection conn);
-//void add();
-//void search();
 
 struct LAKE
 {
@@ -171,7 +167,6 @@ void insertLake(nanodbc::connection conn)
 	getBackToMenu(conn);
 }
 
-
 LAKE getLakeById(nanodbc::connection conn, const int& lakeId)
 {
 	LAKE lake;
@@ -247,14 +242,14 @@ void searchLake(nanodbc::connection conn)
 		cout << "1. Id" << endl;
 		cout << "2. Name" << endl;
 		cout << "3. Exit" << endl;
-		cout << endl << "enter the option's number: ";
+		cout << endl << "Enter the option's number: ";
 
 		cin >> choice;
 
 		switch (choice)
 		{
 		case 1:
-			cout << "Enter lake id: ";
+			cout << "Enter the lake's id: ";
 			lakeId = enterInt();
 			lake = getLakeById(conn, lakeId);
 
@@ -338,25 +333,27 @@ void deleteLake(nanodbc::connection conn)
 		cout << "1. Id" << endl;
 		cout << "2. Name" << endl;
 		cout << "3. Exit" << endl;
-		cout << endl << "enter the option's number: ";
+		cout << endl << "Enter the option's number: ";
 		cin >> choice;
 		switch (choice)
 		{
 		case 1:
+			cout << endl;
 			cout << "Enter the id of the lake you want to delete: ";
 			id = enterInt();
 			queryResult = deleteLakeById(conn, id);
 
 			if (queryResult)
 			{
-				cout << "The lake with id " << id << " was deleted successfully!" << endl;
+				cout << endl << "The lake with id " << id << " was deleted successfully!" << endl;
 			}
 			else {
-				cout << "The lake with id " << id << " was not found!" << endl;
+				cout << endl << "The lake with id " << id << " was not found!" << endl;
 			}
 			break;
 
 		case 2: 
+			cout << endl;
 			cout << "Enter the name of the lake you want to delete: ";
 			lakeName = enterText();
 			deleteLakeByName(conn, lakeName);
@@ -438,7 +435,7 @@ bool runProgram(nanodbc::connection conn)
 		}
 
 		case 5: return false;
-		default: cout << "Try again: ";
+		default: cout << "Try again! " << endl;
 	}
 
 	return true;
