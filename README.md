@@ -1,6 +1,6 @@
 <h1 align = "center">AQUA Project</h1>
 <p align = "center"> <img src = "https://cdn.discordapp.com/attachments/808345491984351302/858350256773005312/No_Brain_No_Gain_Logo.png" width="200"></p>
-<p align = "right">Mentored by TechnoLogica</p>
+<p align = "right"><i>Mentored by TechnoLogica<i></p>
 <br>
 <hr>
 <h1>Our team</h1>
@@ -34,7 +34,9 @@
 > For this project we decided to make a program which gives us the full information about glacial lakes. Our program is written in C++, and we use SQL.
 
 <h1 align="left">Languages and Tools:</h1>
-<p align="left"> 
+<p align="left">
+  <img src="https://1000logos.net/wp-content/uploads/2018/11/GitHub-logo.png" alt="github" width="50" height="50"/>
+  <img src="https://www.freepnglogos.com/uploads/discord-logo-png/concours-discord-cartes-voeux-fortnite-france-6.png" alt="discord" width="50" height="50"/> 
   <img src="https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.png" alt="cplusplus" width="45" height="50"/> 
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/photoshop/photoshop-line.svg" alt="photoshop" width="50" height="50"/> 
   <img src="https://logodownload.org/wp-content/uploads/2018/10/word-logo.png" alt="word" width="50" height="50"/>
