@@ -234,7 +234,7 @@ LAKE getLakeByName(nanodbc::connection conn, const string& lakeName)
 	return lake;
 }
 
-void search(nanodbc::connection conn)
+void searchLake(nanodbc::connection conn)
 {
 	short int choice;
 	LAKE lake;
@@ -427,7 +427,7 @@ bool runProgram(nanodbc::connection conn)
 
 		case 3: {
 			system("cls");
-			search(conn);
+			searchLake(conn);
 			break;
 		}
 
