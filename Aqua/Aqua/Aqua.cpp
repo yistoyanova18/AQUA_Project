@@ -6,13 +6,14 @@
 
 using namespace std;
 
-void runProgram(nanodbc::connection conn);
+bool runProgram(nanodbc::connection conn);
 //void displayMenu();
 //vector<LAKE> getAllLakes(nanodbc::connection conn);
 //void add();
 //void search();
 
-struct LAKE {
+struct LAKE
+{
 	int id = 0;
 	string name = "-";
 	string mountain = "-";
@@ -25,27 +26,28 @@ struct LAKE {
 
 	void display()
 	{
-		cout << this->id << " ";
-		cout << this->name << " ";
-		cout << this->mountain << " ";
-		cout << this->beginRiver << " ";
-		cout << this->mainRiver << " ";
-		cout << this->seaLevelHeight << " ";
-		cout << this->area << " ";
-		cout << this->volume << " ";
-		cout << this->maxDepth << endl;
+		cout << "Lake id: " << this->id << endl;
+		cout << "Name: " << this->name << endl;
+		cout << "Mountain where it is located: " << this->mountain << endl;
+		cout << "A river that springs from the lake: " << this->beginRiver << endl;
+		cout << "Watershed: " << this->mainRiver << endl;
+		cout << "Altitude (m): " << this->seaLevelHeight << endl;
+		cout << "Area (ha): " << this->area << endl;
+		cout << "Volume (cb. m): " << this->volume << endl;
+		cout << "Maximal depth (m): " << this->maxDepth << endl << endl;
 	}
 };
 
 void getBackToMenu(nanodbc::connection conn)
 {
-
 	int choice;
-	cout << "type '0' to return bach to the menu\n";
-enter:
+	cout << "Type '0' to return back to the menu\n";
+	enter:
 	cin >> choice;
-	if (choice == 0) {
-		//system("cls");
+
+	if (choice == 0)
+	{
+		system("cls");
 		//runProgram(conn);
 	}
 	else
@@ -53,11 +55,10 @@ enter:
 		cout << "Invalid entered value! Plase enter again: ";
 		goto enter;
 	}
-
 }
 
-vector<LAKE> getLakes(nanodbc::connection conn) {
-
+vector<LAKE> getLakes(nanodbc::connection conn)
+{
 	vector<LAKE> lakes;
 
 	nanodbc::statement statement(conn); 
@@ -90,6 +91,7 @@ vector<LAKE> getLakes(nanodbc::connection conn) {
 void getAllLakes(nanodbc::connection conn)
 {
 	vector<LAKE> lakes = getLakes(conn);
+
 	for (size_t i = 0; i < lakes.size(); i++)
 	{
 		lakes[i].display();
@@ -103,6 +105,7 @@ string enterText()
 	cin.ignore(1, '\n');
 	string text;
 	getline(cin, text);
+
 	return text;
 }
 
@@ -120,7 +123,7 @@ double enterDouble()
 	return num;
 }
 
-void insert(nanodbc::connection conn)
+void insertLake(nanodbc::connection conn)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -147,33 +150,27 @@ void insert(nanodbc::connection conn)
 	const string mainRiver = enterText();
 	statement.bind(3, mainRiver.c_str());
 
-
-
-	cout << "Enter the lake's altitude: ";
+	cout << "Enter the lake's altitude (in meters) : ";
 	const int seaLevelHeight = enterInt();
 	statement.bind(4, &seaLevelHeight);
 
-	cout << "Enter the lake's area: ";
+	cout << "Enter the lake's area (in ha) : ";
 	double area = enterDouble();
 	statement.bind(5, &area);
 
-	cout << "Enter the lake's volume: ";
+	cout << "Enter the lake's volume (in cubic meters) : ";
 	double volume = enterDouble();
 	statement.bind(6, &volume);
 
-	cout << "Enter the lake's deepest point: ";
+	cout << "Enter the lake's deepest point (in meters) : ";
 	double maxDepth = enterDouble();
 	statement.bind(7, &maxDepth);
 
 	execute(statement);
-}
-
-void insertLake(nanodbc::connection conn) { 
-
-	insert(conn);
 
 	getBackToMenu(conn);
 }
+
 
 LAKE getLakeById(nanodbc::connection conn, const int& lakeId)
 {
@@ -201,7 +198,6 @@ LAKE getLakeById(nanodbc::connection conn, const int& lakeId)
 		lake.area = result.get<float>("Area");
 		lake.volume = result.get<float>("Volume");
 		lake.maxDepth = result.get<float>("MaxDepth");
-
 	}
 
 	return lake;
@@ -233,50 +229,60 @@ LAKE getLakeByName(nanodbc::connection conn, const string& lakeName)
 		lake.area = result.get<double>("Area");
 		lake.volume = result.get<double>("Volume");
 		lake.maxDepth = result.get<double>("MaxDepth");
-
 	}
 
 	return lake;
 }
 
-void search(nanodbc::connection conn)
+void searchLake(nanodbc::connection conn)
 {
 	short int choice;
 	LAKE lake;
 	int lakeId;
 	string lakeName;
 
-	do {
+	do
+	{
 		cout << "SEARCH BY" << endl;
 		cout << "1. Id" << endl;
 		cout << "2. Name" << endl;
 		cout << "3. Exit" << endl;
 		cout << endl << "enter the option's number: ";
+
 		cin >> choice;
+
 		switch (choice)
 		{
 		case 1:
 			cout << "Enter lake id: ";
 			lakeId = enterInt();
 			lake = getLakeById(conn, lakeId);
-			if (lake.id != 0) {
+
+			if (lake.id != 0)
+			{
 				lake.display();
 			}
-			else {
+			else
+			{
 				cout << "The lake with id " << lakeId << " was not found!" << endl;
 			}
 			break;
+
 		case 2:
 			cout << "Enter lake's name: ";
 			lakeName = enterText();
 			lake = getLakeByName(conn, lakeName);
-			if (lake.id != 0) {
+
+			if (lake.id != 0)
+			{
 				lake.display();
 			}
-			else {
+			else
+			{
 				cout << "The lake with name " << lakeName << " was not found!" << endl;
 			}
 			break;
+
 		case 3: break;
 		default: cout << "Incorrect value entered! Please enter again: " << endl;
 		}
@@ -326,8 +332,8 @@ void deleteLake(nanodbc::connection conn)
 	int id;
 	string lakeName;
 
-
-	do {
+	do
+	{
 		cout << "DELETE BY" << endl;
 		cout << "1. Id" << endl;
 		cout << "2. Name" << endl;
@@ -349,29 +355,33 @@ void deleteLake(nanodbc::connection conn)
 				cout << "The lake with id " << id << " was not found!" << endl;
 			}
 			break;
+
 		case 2: 
 			cout << "Enter the name of the lake you want to delete: ";
 			lakeName = enterText();
 			deleteLakeByName(conn, lakeName);
+
 			if (queryResult)
 			{
 				cout << "The lake with name " << lakeName << " was deleted successfully!" << endl;
 			}
-			else {
+			else
+			{
 				cout << "The lake with name " << lakeName << " was not found!" << endl;
 			}
 
 			break;
+
 		case 3: break;
 		default: cout << "Incorrect value entered! Please enter again: ";
 		}
-
 	} while (choice != 3);
+
 	getBackToMenu(conn);
 }
 
-void displayMenu() {
-
+void displayMenu()
+{
 	cout << "  _______________________________________________________________________ \n";
 	cout << " |                                                                       |\n";
 	cout << " |      ///////////     ///////////         ///     ///     ///////////  |\n";
@@ -385,55 +395,67 @@ void displayMenu() {
 	cout << " |                                1. INFO                                |\n";
 	cout << " |                                2. ADD                                 |\n";
 	cout << " |                                3. SEARCH                              |\n";
-	cout << " |                                4. QUIT                                |\n";
+	cout << " |                                4. DELETE                              |\n";
+	cout << " |                                5. QUIT                                |\n";
 	cout << " |                                                                       |\n";
 	cout << " |                                                                       |\n";
 	cout << " |_______________________________________________________________________|\n";
 }
 
-void runProgram(nanodbc::connection conn) {
+bool runProgram(nanodbc::connection conn)
+{
 	int choice;
 
-	while (true) {
-		system("cls");
-		displayMenu();
-		cin >> choice;
-		switch (choice) {
+	displayMenu();
+
+	cout << "Enter an option from the menu: ";
+	cin >> choice;
+
+	switch (choice)
+	{
 		case 1: {
 			system("cls");
 			getAllLakes(conn);
 			break;
 		}
+
 		case 2: {
 			system("cls");
 			insertLake(conn);
 			break;
 		}
+
 		case 3: {
 			system("cls");
-			search(conn);
+			searchLake(conn);
 			break;
 		}
+
 		case 4: {
-			return;
+			system("cls");
+			deleteLake(conn);
+			break;
 		}
-		default: {
-			cout << "Try again: ";
-		}
-		}
+
+		case 5: return false;
+		default: cout << "Try again: ";
 	}
+
+	return true;
 }
 
 int main()
 {
-
 	try
 	{
 		nanodbc::string connstr = NANODBC_TEXT("DRIVER={ODBC Driver 17 for SQL Server};SERVER=DESKTOP-VSMRK4C\\SQLExpress;DATABASE=AQUA_Lakes;Trusted_Connection=yes;"); // an ODBC connection string to your database
 
 		nanodbc::connection conn(connstr);
 
-		runProgram(conn);
+		do
+		{
+			runProgram(conn);
+		} while (runProgram(conn));
 
 		//cout << deleteLakeById(conn, 6);
 
