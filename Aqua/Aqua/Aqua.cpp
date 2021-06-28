@@ -123,7 +123,7 @@ double enterDouble()
 	return num;
 }
 
-void insert(nanodbc::connection conn)
+void insertLake(nanodbc::connection conn)
 {
 	nanodbc::statement statement(conn);
 	nanodbc::prepare(statement, NANODBC_TEXT(R"(
@@ -167,14 +167,10 @@ void insert(nanodbc::connection conn)
 	statement.bind(7, &maxDepth);
 
 	execute(statement);
-}
-
-void insertLake(nanodbc::connection conn)
-{ 
-	insert(conn);
 
 	getBackToMenu(conn);
 }
+
 
 LAKE getLakeById(nanodbc::connection conn, const int& lakeId)
 {
